@@ -1,62 +1,49 @@
-package com.solicode.kotlinessentiel.demo
+package com.solicode.hellocounter
 
-// --- 1) levelLabel using when ---
-fun levelLabel(count: Int): String = when {
-    count < 0 -> "Invalide"
-    count == 0 -> "Début"
-    count in 1..9 -> "Bas"
-    count in 10..99 -> "Moyen"
-    else -> "Élevé"
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+
+
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent { App() }
+    }
 }
 
-// --- 2) sum0to using range ---
-fun sum0to(n: Int): Int {
-    require(n >= 0) // sécurité
-    var sum = 0
-    for (i in 0..n) sum += i
-    return sum
+@Composable
+fun App() {
+    MaterialTheme {
+        Greeting()
+    }
 }
 
-// version fonctionnelle alternative
-fun sum0toFunctional(n: Int) = (0..n).sum()
+@Composable
+fun Greeting() {
+    var count by remember { mutableStateOf(0) }
 
-// --- 3) Demonstration of val / var + type inference + string templates ---
-fun main() {
-    // val = immuable
-    val appName = "HelloCounter"
-    val versionCode = 1
-
-    // var = mutable
-    var count = 0
-    var userName: String? = null // nullable
-
-    println("App: $appName (#$versionCode)")
-    println("Initial count = $count")
-
-    // mise à jour du count
-    count += 5
-    println("Updated count = $count")
-
-    // Using levelLabel function
-    println("Level for count $count = ${levelLabel(count)}")
-    println("Level for -3 = ${levelLabel(-3)}")
-    println("Level for 0 = ${levelLabel(0)}")
-    println("Level for 50 = ${levelLabel(50)}")
-
-    // Using sum0to
-    println("Sum from 0 to 10 = ${sum0to(10)}")
-    println("Sum from 0 to 10 (functional) = ${sum0toFunctional(10)}")
-
-    // Collections & ranges
-    val tags = listOf("kotlin", "compose", "android")
-    for (t in tags) println("Tag: $t")
-    for ((i, t) in tags.withIndex()) println("$i → $t")
-
-    // Functional transformations
-    val filtered = tags.map { it.uppercase() }.filter { it.startsWith("A") }
-    println("Filtered tags: $filtered")
-
-    // Simple condition with if expression
-    val status = if (count > 0) "OK" else "VIDE"
-    println("Status: $status")
+    // Box = conteneur qui permet d'aligner son contenu
+    Box(
+        modifier = Modifier.fillMaxSize(),              // occupe tout l'écran
+        contentAlignment = Alignment.Center             // centre le contenu
+    ) {
+        Button(onClick = { count++ }) {
+            Text("Hello, count = $count")
+        }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun PreviewApp() {
+    App()
 }
