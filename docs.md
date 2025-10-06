@@ -17,7 +17,7 @@
  - `getOrNull` for safe list indexing
 
 ------------------------------------------------------------------------
-
+    
 ### 1. Safe call + Elvis
 
 ``` kotlin
