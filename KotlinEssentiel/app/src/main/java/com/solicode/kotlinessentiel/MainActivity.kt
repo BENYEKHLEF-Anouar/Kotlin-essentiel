@@ -1,4 +1,4 @@
-package com.solicode.hellocounter
+package com.solicode.kotlinessentiel
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
